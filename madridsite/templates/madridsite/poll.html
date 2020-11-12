@@ -1,0 +1,40 @@
+{% extends 'madridsite/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<form method="post" action="/poll">
+    {% csrf_token %}
+    <h3>あなたがレアルマドリードに獲得を望む選手は？</h3><br>
+
+    <input type='radio' name='cn' value='0'>ムバッペ<br>
+    <input type='radio' name='cn' value='1'>ハーランド<br>
+    <input type='radio' name='cn' value='2'>ネイマール<br>
+    <input type='radio' name='cn' value='3'>ディバラ<br>
+    <input type='radio' name='cn' value='4'>その他<br>
+    <br>
+    <input type="submit" name="submit" value="投票">
+    </form><br>
+    <table border='1'>
+    
+    <tr>
+        <td>ムバッペ</td>
+        <td><table><tr></tr>
+        <td width=50 bgcolor='blue'> </td>
+        <td>25 票</td>
+        </tr></table></td>
+    </tr><br>
+    
+    
+    <tr>
+        <td>ハーランド</td>
+        <td><table><tr></tr>
+        <td width=10 bgcolor='blue'> </td>
+        <td>5 票</td>
+        </tr></table></td>
+    </tr><br>
+    
+    </table>
+
+{% endblock %}

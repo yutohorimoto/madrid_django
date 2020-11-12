@@ -1,0 +1,29 @@
+{% extends 'madridsite/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section>
+
+    <h2>Member</h2>
+    <p>2019-2020シーズンのレアルマドリードのメンバーです。</p>
+    
+    
+    <table class="ta1">
+    <tr>
+    <th colspan="2" class="tamidashi"></th>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+        
+        <thead>
+            
+        </thead>
+        <tbody id='csv-body_mem' />
+        </table>
+       
+    </div>    
+    
+    </section>
+    <script src="{% static 'js/member.js' %}"></script>
+{% endblock %}

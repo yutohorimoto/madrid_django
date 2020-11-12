@@ -1,0 +1,50 @@
+{% extends 'madridsite/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section>
+
+    <h2>result</h2>
+    <p>2019-2020シーズンのレアルマドリードの試合結果です。</p>
+    
+    <h2></h2>
+    
+    <ul class="tabs-menu">
+        <li><a href="#tabs-1">2019-2020</a></li>
+        <li><a href="#tabs-2">2020-2021</a></li>
+        
+      </ul>
+      <div class="tabs-content">
+            <section id="tabs-1">
+                
+                <div class="table-responsive ">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr><th>日程</th><th>ホーム</th><th>結果</th><th>アウェイ</th><th></th></tr>
+                        </thead>
+                        <tbody id='csv-body'></tbody>
+                    </table>  
+                </div>
+            </section>
+            <section id="tabs-2">
+            <div class="table-responsive ">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr><th>日程</th><th>ホーム</th><th>結果</th><th>アウェイ</th><th></th></tr>
+                        </thead>
+                        <tbody id='csv-body20'></tbody>
+                    </table>  
+                </div>
+            </section>
+        
+        </div>
+    
+    
+    
+    
+    
+    </section>
+    <script src="{% static 'js/result.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'madridsite/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<section>
+
+    <h2>quiz</h2>
+    <p>レアルマドリードに関するクイズです。</p>
+    
+    <h2></h2>
+    <table class="ta1">
+    <tr>
+    <th colspan="2" class="tamidashi"></th>
+    
+    <h2>4択クイズ(全10問)</h2>
+    <hr>
+    <h3>問題</h3>
+    <div id="text_q"></div>
+    <h3>選択</h3>
+    <div id="text_s"></div>
+    <h3>解答</h3>
+    <div id="text_a"></div>
+    <h3>得点</h3>
+    <div id="text_p"></div>
+    </section>
+    <script src="{% static 'js/quiz.js' %}"></script>
+{% endblock %}
