@@ -34,17 +34,52 @@ def poll_page(request):
 
     return render(request, 'madridsite/poll.html')
 
+def news_list(request):
+    news = News.objects.order_by('id').reverse()
+    if request.method == 'POST':
+        from django.http import QueryDict
+        # request.bodyに入っている。
+        dic = QueryDict(request.body, encoding='utf-8')
+        view_number = int(dic.get('view_number'))
+        news_number = int(dic.get('news_number'))
+        
+        viewed_news = get_object_or_404(News, id=news_number)
+        viewed_news.view_number += view_number
+        viewed_news.save()
+
+    return render(request, 'madridsite/news.html', {'realnews':news})
+
 class NewsListView(ListView):
     template_name = 'madridsite/news.html'
     #model = News
     queryset = News.objects.order_by('id').reverse()
     context_object_name = 'realnews'
     paginate_by = 20
+    def post(self, request, *args, **kwargs):
+        #if self.request.method == 'POST':
+        from django.http import QueryDict
+        # request.bodyに入っている。
+        dic = QueryDict(self.request.body, encoding='utf-8')
+        view_number = int(dic.get('view_number'))
+        news_number = int(dic.get('news_number'))
+        
+        viewed_news = get_object_or_404(News, id=news_number)
+        viewed_news.view_number += view_number
+        viewed_news.save()
+        return render(self.request, 'madridsite/news.html')
+
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['check'] = Like.objects.filter(user=self.request.user, news=self.kwargs.get('id')).exists()
-        
+        #context['check'] = Like.objects.filter(user=self.request.user, news=self.kwargs.get('id')).exists()
+        #context.update({
+        #    'like_list': Like.objects.filter(user=self.request.user)
+        #})
+        context['check'] = Like.objects.filter(user=self.request.user)
         return context
+
+
+
+    
 
 
 def diagnosis(request):
@@ -204,3 +239,12 @@ def like(request,id):
     like.save()
     
     return redirect('news_list')
+
+
+class MyLikeView(ListView):
+    template_name = 'madridsite/mylike.html'
+    context_object_name = 'realnews'
+    def get_queryset(self):
+        # queryset = super(ListView, self).get_queryset()  
+        queryset = Like.objects.filter(date_created__lte=timezone.now(),user=self.request.user).order_by('date_created')
+        return queryset

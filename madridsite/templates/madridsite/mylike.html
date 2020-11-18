@@ -1,10 +1,10 @@
 {% extends 'madridsite/base.html' %}
 {% load static %}
+
+
 {% block content %}
-{% if user.id  %}<a href="{% url 'mylike' %}">お気に入りしたニュース</a>{% endif %}
-{% for like in check.date_created %}
-<p>id = {{ like }}</p>
-{% endfor %}
+<a href="{% url 'news_list' %}">News一覧に戻る</a>
+
 <div class="table-responsive">
     <table class="table table-bordered">
     
@@ -15,15 +15,13 @@
         
         {% for new in realnews %}
 
-        <tr><td>{% csrf_token %}
-            <span class='news_{{ new.id }}'><a  class='news_{{ new.id }}' href="{{ new.news_url }}">{{ new.news_title }}</a></span>
+        <tr><td><a href="{{ new.news.news_url }}">{{ new.news.news_title }}</a>
             {% if user.id  %}<a href="{% url 'like' id=new.id %}"><img id='like' src="{% static 'images/like.svg' %}"></a>{% endif %}
-            {{ new.like_number }}good
+            {{ new.news.like_number }}good
             {% if check == True %}<p class= 'red'>いいね済み</p>{% else %}
 
             {% endif %}
-            {{ new.view_number }}views</td></tr>
-            
+            {{ new.news.view_number }}views</td></tr>
 
         {% endfor %}
     </tbody>
@@ -65,6 +63,4 @@
     </ul>
 
 </nav>
-    <script src="{% static 'js/count.js' %}"></script>
-    
 {% endblock %}

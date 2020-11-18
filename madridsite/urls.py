@@ -1,6 +1,8 @@
 from django.urls import path
-
+from django.contrib.auth import login, logout
 from . import views
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('',views.home_page, name='home'),
@@ -11,10 +13,13 @@ urlpatterns = [
     path('diagnosis',views.diagnosis, name='diagnosis'),
     path('diagnosis_result',views.diagnosis_result, name='diagnosis_result'),
     path('news', views.NewsListView.as_view(), name='news_list'),
+    #path('news', views.news_list, name='news_list'),
     path('like/<int:id>', views.like, name='like'),
     path(r'create/', views.create_account, name='create_account'),
     path(r'login/', views.account_login, name='login'),
     path("logout/",views.MyLogoutView.as_view(template_name='madridsite/logout.html'),name="logout"),
     path('accounts/login/',views.account_login, name='account_login'),
+    path('news/mylike',views.MyLikeView.as_view(),name ='mylike'),
+
 ]
     #path('home',views.home_page, name='home'),
