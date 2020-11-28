@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate,logout
 from django.views import View
 from django.views.generic import CreateView, TemplateView,ListView,DetailView,DeleteView,FormView
 from django.utils import timezone
-from .models import Post,News,Like
+from .models import Post,News,Like,Election
 from .forms import UserCreateForm, LoginForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
@@ -31,8 +31,36 @@ def quiz_page(request):
     return render(request, 'madridsite/quiz.html')
 
 def poll_page(request):
+    #polls =  get_object_or_404(Poll)
+    polls = Election.objects.all()
+    return render(request, 'madridsite/poll.html', {'polls':polls})
 
-    return render(request, 'madridsite/poll.html')
+def poll_result(request):
+    polls = Election.objects.all()
+    
+    if request.method == 'POST':
+        vote = request.POST['cn']
+        poll =  get_object_or_404(Election,id=vote)
+        poll.number += 1
+        poll.save()
+
+    return render(request, 'madridsite/poll_result.html', {'polls':polls})
+
+class PostListView(ListView):
+    template_name = 'madridsite/post_list.html'
+    #model = Post
+    queryset = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    context_object_name = 'posts'
+
+class PostDetail(DetailView):
+    template_name = 'madridsite/post_detail.html'
+    model = Post
+    context_object_name = 'post'
+    #def get_context_data(self,**kwargs):
+    #    context = super().get_context_data(**kwargs)
+    #    context['check'] = Like.objects.filter(user=self.request.user, post=self.kwargs.get('pk')).exists()
+    #    context['comments']= Comment.objects.filter(post=self.kwargs.get('pk'))
+    #    return context
 
 def news_list(request):
     news = News.objects.order_by('id').reverse()

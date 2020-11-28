@@ -130,3 +130,5 @@ if __name__ == "__main__":
     writer.writerow(csv_list)
         # ファイル破損防止のために閉じますs
     f.close()
+
+#sudo service mysql start

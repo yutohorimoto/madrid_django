@@ -1,0 +1,17 @@
+
+{% extends 'madridsite/base.html' %}
+{% load markdown_extras %}
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                日時：{{ post.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ post.title }}</h1>
+
+        <p>{{ post.text|markdown|safe}}</p>
+
+
+    </div>
+{% endblock %}

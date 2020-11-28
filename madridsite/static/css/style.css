@@ -1,11 +1,6 @@
 @charset "utf-8";
 
 
-/*PC・タブレット・スマホ共通設定
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/*全体の設定
----------------------------------------------------------------------------*/
 body {
 	margin: 0px;
 	padding: 0px;
@@ -25,29 +20,30 @@ a:hover img {opacity: 0.6}
 table {border-collapse:collapse;font-size: 100%;border-spacing: 0;}
 iframe {width: 100%;}
 
-/*h2見出しタグの設定
----------------------------------------------------------------------------*/
+h1{
+	font-size:30px;
+	color:black;	
+}
+
 h2 {
 	clear: both;
 	margin-bottom: 15px;
-	color: #fff;			/*文字色*/
-	padding: 5px 20px;		/*上下、左右への余白*/
-	background: #3e6680;	/*背景色*/
-	border-radius: 4px;		/*角丸のサイズ。大きくすれば角の丸みが大きくなる。角丸が不要ならこの１行削除。*/
+	color: #fff;			
+	padding: 5px 20px;
+	background: #62b2e7;	
+	border-radius: 4px;		
 }
 
-/*h3見出しタグの設定
----------------------------------------------------------------------------*/
+
 h3 {
 	clear: both;
 	margin-bottom: 15px;
-	padding: 3px 20px;			/*上下、左右への余白*/
-	border-radius: 4px;			/*角丸のサイズ。大きくすれば角の丸みが大きくなる。角丸が不要ならこの１行削除。*/
-	border: 2px solid #3e6680;	/*枠線の幅、線種、色*/
+	padding: 3px 20px;			
+	border-radius: 4px;			
+	border: 2px solid #62b2e7;	
 }
 
-/*段落タグ設定
----------------------------------------------------------------------------*/
+
 p {
 	padding: 0px 20px 20px;	/*上、左右、下への余白*/
 	
@@ -56,10 +52,9 @@ p {
 .greed{
 	color:yellow;
 }
-/*リンク設定
----------------------------------------------------------------------------*/
+
 a {
-	color: #3e6680;	/*リンクテキストの色*/
+	color: #62b2e7;	/*リンクテキストの色*/
 	-webkit-transition: 0.5s;	/*マウスオン時の移り変わるまでの時間設定。0.5秒。*/
 	transition: 0.5s;	
 	padding: 20px;			/*同上*/
@@ -95,13 +90,11 @@ header {
 	max-width: 500px;	/*上の行の指定だけだと大きくなりすぎる場合があるので、最大幅(max-width)を500pxに指定。これ以上大きくならない。*/
 }
 
-/*メニュー
----------------------------------------------------------------------------*/
-/*メニュー全体を囲むブロック*/
+
 #menubar {
 	margin: 50px 0px;	/*メニューブロックの上下(ブロックの外側)に空けるスペース*/
-	border-top: 3px solid #3e6680;		/*上の線の幅、線種、色*/
-	border-bottom: 3px solid #3e6680;	/*下の線の幅、線種、色*/
+	border-top: 3px solid #62b2e7;		/*上の線の幅、線種、色*/
+	border-bottom: 3px solid #62b2e7;	/*下の線の幅、線種、色*/
 	text-align: center;	/*メニューブロックの内容をセンタリングする設定*/
 }
 /*メニュー１個あたりの設定*/
@@ -111,19 +104,17 @@ header {
 #menubar li a {
 	text-decoration: none;
 	padding: 10px 20px;				/*10pxは上下に、20pxは左右へ空ける余白指定。*/
-	color: #3e6680;					/*文字色*/
+	color: #62b2e7;					/*文字色*/
 	font-size: 20px;				/*文字サイズを少し大きくする設定。お好みで変更して下さい。*/
 	letter-spacing: 0.2em;			/*文字感覚を少し広くする設定。広くしないでいいなら、この１行を削除。*/
 }
 /*マウスオン時の設定*/
 #menubar li a:hover {
-	background: #3e6680;	/*背景色*/
+	background: #62b2e7;	/*背景色*/
 	color: #fff;			/*文字色*/
 }
 
-/*Galleryページ
----------------------------------------------------------------------------*/
-/*画像の設定*/
+
 .list figure img {
 	float: left;	/*左に回り込みさせる設定*/
 	width: 18%;		/*画像の幅*/
@@ -131,8 +122,7 @@ header {
 	border-radius: 50%;		/*角丸のサイズ。50%にすると円形になる。正方形がいいなら、この１行削除する。*/
 }
 
-/*フッター(ページ最下部のcopyrightのパーツ)設定
----------------------------------------------------------------------------*/
+
 footer {
 	clear: both;
 	text-align: center;	/*文字をセンタリング*/
@@ -149,9 +139,6 @@ footer .pr {
 	display: block;
 }
 
-/*トップページ内「更新情報・お知らせ」ブロック
----------------------------------------------------------------------------*/
-/*ブロック全体の設定*/
 #new dl {
 	padding-left: 20px;
 	margin-bottom: 15px;
@@ -167,32 +154,7 @@ footer .pr {
 	padding-left: 8em;
 }
 
-/*テーブル
----------------------------------------------------------------------------*/
-/*tテーブルブロック設定*/
-.ta1 {
-	width: 100%;
-	margin-bottom: 15px;
-}
-.ta1, .ta1 td, .ta1 th {
-	border: 2px solid #3e6680;	/*テーブルの枠線の幅、線種、色*/
-	padding: 10px;			/*テーブル内の余白*/
-	word-break: break-all;
-}
-/*テーブル１行目に入った見出し部分*/
-.ta1 th.tamidashi {
-	width: auto;
-	text-align: left;	/*左よせ*/
-	background: #eee;	/*背景色*/
-}
-/*テーブルの左側ボックス*/
-.ta1 th {
-	width: 30%;	/*幅*/
-	text-align: center;	/*センタリング*/
-}
 
-/*その他
----------------------------------------------------------------------------*/
 .look {background: #333; color: #fff;padding: 5px 10px;border-radius: 4px;}
 .mb15,.mb1em {margin-bottom: 15px;}
 .color1 {color:#d50f26;}
@@ -215,30 +177,12 @@ footer .pr {
 #menubar li {
 	display: block;	/*メニューを「横並び」から「縦並び」に変更する設定*/
 	margin-bottom: 5px;
-	border-bottom: 3px solid #3e6680;	/*下の線の幅、線種、色を追加指定*/
+	border-bottom: 3px solid #62b2e7;	/*下の線の幅、線種、色を追加指定*/
 }
 
-/*Galleryページ
----------------------------------------------------------------------------*/
-/*画像の設定*/
-.list figure img {
-	width: 48%;		/*画像の幅*/
-}
 
-/*トップページ内「更新情報・お知らせ」ブロック
----------------------------------------------------------------------------*/
-#new h2.open {
-	background: #3e6680 url(../images/btn_minus.png) no-repeat right center/34px 34px;
-}
-#new h2.close {
-	background: #3e6680 url(../images/btn_plus.png) no-repeat right center/34px 34px;
-}
-
-/*テーブル
----------------------------------------------------------------------------*/
-/*tテーブルブロック設定*/
-.ta1, .ta1 td, .ta1 th {
-	padding: 5px;			/*テーブル内の余白*/
+td, th {
+	padding: 5px;			
 }
 
 }

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'madridsite.apps.MadridsiteConfig',
+    'mdeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,3 +141,10 @@ LOGGING = {
         },
     },
 }
+
+# これはDjangoバージョン3.0以上の場合のみ記載すること
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+ 
+# ファイルアップロード用
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'

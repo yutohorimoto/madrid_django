@@ -2,9 +2,7 @@
 {% load static %}
 {% block content %}
 {% if user.id  %}<a href="{% url 'mylike' %}">お気に入りしたニュース</a>{% endif %}
-{% for like in check.date_created %}
-<p>id = {{ like }}</p>
-{% endfor %}
+
 <div class="table-responsive">
     <table class="table table-bordered">
     
@@ -14,17 +12,17 @@
     <tbody id='csv-body'>
         
         {% for new in realnews %}
-
+        
         <tr><td>{% csrf_token %}
             <span class='news_{{ new.id }}'><a  class='news_{{ new.id }}' href="{{ new.news_url }}">{{ new.news_title }}</a></span>
-            {% if user.id  %}<a href="{% url 'like' id=new.id %}"><img id='like' src="{% static 'images/like.svg' %}"></a>{% endif %}
+           {% if user.id  %}{% for like in check %}{% if  new.id  ==  like.news.id  %}<span class= 'red'>いいね済み</span>{% else %}{% endif %}{% endfor %}
+            <a href="{% url 'like' id=new.id %}"><img id='like' src="{% static 'images/like.svg' %}"></a>{% endif %}
             {{ new.like_number }}good
-            {% if check == True %}<p class= 'red'>いいね済み</p>{% else %}
-
-            {% endif %}
-            {{ new.view_number }}views</td></tr>
             
 
+            {{ new.view_number }}views</td></tr>
+            
+        
         {% endfor %}
     </tbody>
     </table>

@@ -16,7 +16,7 @@
         {% for new in realnews %}
 
         <tr><td><a href="{{ new.news.news_url }}">{{ new.news.news_title }}</a>
-            {% if user.id  %}<a href="{% url 'like' id=new.id %}"><img id='like' src="{% static 'images/like.svg' %}"></a>{% endif %}
+            {% if user.id  %}<a href="{% url 'like' id=new.news.id %}"><img id='like' src="{% static 'images/like.svg' %}"></a>{% endif %}
             {{ new.news.like_number }}good
             {% if check == True %}<p class= 'red'>いいね済み</p>{% else %}
 

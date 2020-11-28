@@ -1,0 +1,21 @@
+{% extends 'madridsite/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<p>投票が完了しました。</p>
+<a href="{% url 'poll' %}">投票ページに戻る</a>
+<table border='1'>
+    {% for poll in polls %}
+    <tr>
+        <td>{{ poll.player }}</td>
+        <td><table><tr></tr>
+        <td width={{ poll.number }}  bgcolor='blue'> </td>
+        <td>{{ poll.number }} 票</td>
+        </tr></table></td>
+    </tr><br>
+    
+    {% endfor %}
+
+{% endblock %}
