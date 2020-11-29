@@ -49,7 +49,7 @@ def read_ex_csv(file):
 
 
 if __name__ == "__main__":
-    file = "./news.csv"
+    file = "./madridsite/static/csv/news.csv"
     ex_csv = read_ex_csv(file)
     ex_csv[0] = ex_csv[0].replace(' ', '')
     print(ex_csv[0])

@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import CreateView, TemplateView,ListView,DetailView,DeleteView,FormView
 from django.utils import timezone
 from .models import Post,News,Like,Election
-from .forms import UserCreateForm, LoginForm
+from .forms import UserCreateForm, LoginForm,PostForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -62,6 +62,56 @@ class PostDetail(DetailView):
     #    context['comments']= Comment.objects.filter(post=self.kwargs.get('pk'))
     #    return context
 
+@login_required
+def post_new(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            #commit=False は Post モデルをまだ保存しないという意味
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+            #新しく作成されたポストの post_detail ページに移動
+    else:
+        form = PostForm()
+    return render(request, 'madridsite/post_edit.html', {'form': form})
+
+class NewPost(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "madridsite/post_edit.html"
+    success_url = "post_list"  
+
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    #編集したいPost モデルを取得
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        #formを保存するとき
+        if form.is_valid():
+            post = form.save(commit=False)
+            if post.author == request.user:
+                post.author = request.user
+                post.published_date = timezone.now()
+                post.save()
+                return redirect('post_detail', pk=post.pk)
+            else:
+                raise PermissionDenied
+
+    else:
+        form = PostForm(instance=post)
+        #formを開くだけのとき
+    return render(request, 'madridsite/post_edit.html', {'form': form})
+
+class PostDelete(DeleteView):
+    template_name = 'madridsite/post_confirm_delete.html'
+    model = Post
+    context_object_name = 'post'
+    success_url = reverse_lazy('post_list')
+
 def news_list(request):
     news = News.objects.order_by('id').reverse()
     if request.method == 'POST':
@@ -98,10 +148,7 @@ class NewsListView(ListView):
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        #context['check'] = Like.objects.filter(user=self.request.user, news=self.kwargs.get('id')).exists()
-        #context.update({
-        #    'like_list': Like.objects.filter(user=self.request.user)
-        #})
+ 
         context['check'] = Like.objects.filter(user=self.request.user)
         return context
 
@@ -114,7 +161,7 @@ def diagnosis(request):
 
     return render(request, 'madridsite/diagnosis.html')
 def diagnosis_result(request):
-#def diagnosis_result(self, request, *args, **kwargs):
+
 
     q1 = int(request.POST['q1'])
     q2 = int(request.POST['q2'])
