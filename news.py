@@ -132,3 +132,7 @@ if __name__ == "__main__":
     f.close()
 
 #sudo service mysql start
+
+# ls -an
+#cd /mnt/c/Users/Yuto\ Horimoto/Onedrive/デスクトップ
+#cd ~/awsec2test/

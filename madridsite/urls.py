@@ -19,6 +19,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('post/<int:pk>/delete/', views.PostDelete.as_view(), name='post_delete'),
+    path('post/<int:pk>/comment', views.comment, name='comment'),
     path('diagnosis',views.diagnosis, name='diagnosis'),
     path('diagnosis_result',views.diagnosis_result, name='diagnosis_result'),
     path('news', views.NewsListView.as_view(), name='news_list'),

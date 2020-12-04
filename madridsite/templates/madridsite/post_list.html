@@ -1,7 +1,7 @@
 {% extends 'madridsite/base.html' %}
 
 {% block content %}
-{% if post.author == yutohorimoto %}
+{% if request.user  %}
 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 {% endif %}
         {% for post in posts %}

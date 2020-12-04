@@ -1,0 +1,12 @@
+{% extends 'madridsite/base.html' %}
+
+{% block content %}
+    <h3>コメント</h3>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <!--{{ form.as_p }}-->
+       
+        <p>{{form.text}}</p>
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+{% endblock %}

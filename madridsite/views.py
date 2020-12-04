@@ -5,8 +5,8 @@ from django.contrib.auth import login, authenticate,logout
 from django.views import View
 from django.views.generic import CreateView, TemplateView,ListView,DetailView,DeleteView,FormView
 from django.utils import timezone
-from .models import Post,News,Like,Election
-from .forms import UserCreateForm, LoginForm,PostForm
+from .models import Post,News,Like,Election,Comment
+from .forms import UserCreateForm, LoginForm,PostForm,CommentForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -56,11 +56,11 @@ class PostDetail(DetailView):
     template_name = 'madridsite/post_detail.html'
     model = Post
     context_object_name = 'post'
-    #def get_context_data(self,**kwargs):
-    #    context = super().get_context_data(**kwargs)
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
     #    context['check'] = Like.objects.filter(user=self.request.user, post=self.kwargs.get('pk')).exists()
-    #    context['comments']= Comment.objects.filter(post=self.kwargs.get('pk'))
-    #    return context
+        context['comments']= Comment.objects.filter(post=self.kwargs.get('pk'))
+        return context
 
 @login_required
 def post_new(request):
@@ -78,7 +78,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'madridsite/post_edit.html', {'form': form})
 
-class NewPost(CreateView):
+class NewPost(LoginRequiredMixin,CreateView,):
     model = Post
     form_class = PostForm
     template_name = "madridsite/post_edit.html"
@@ -323,3 +323,18 @@ class MyLikeView(ListView):
         # queryset = super(ListView, self).get_queryset()  
         queryset = Like.objects.filter(date_created__lte=timezone.now(),user=self.request.user).order_by('date_created')
         return queryset
+
+@login_required
+def comment(request,pk):
+    
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = Post.objects.get(pk=pk)
+            comment.save()
+            return redirect('post_detail', pk=comment.post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'madridsite/comment.html', {'form': form})
